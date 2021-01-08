@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css';
-
+import WordResult from './components/WordResult'
 require('dotenv').config()
 
 function App() {
+  const [randomWord, setRandomWord ] = useState([])
 
   const getWordRequest = async () => {
     const API = process.env.REACT_APP_API_KEY
@@ -12,7 +13,11 @@ function App() {
     const response = await fetch(url)
     const responseJson = await response.json()
 
-    console.log(responseJson)
+    
+   if(responseJson.word){
+    setRandomWord(responseJson.word)
+    
+   }
   }
   useEffect(() => {
     getWordRequest()
@@ -20,8 +25,11 @@ function App() {
   
   return (
     <div className="App">
-    
-      app.js
+      <div>
+        hello
+        {/* <h1>{randomWord}</h1> */}
+        <WordResult randomWord={randomWord}/>
+      </div>
     </div>
   );
 }
